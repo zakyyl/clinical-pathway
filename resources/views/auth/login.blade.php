@@ -278,7 +278,6 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- Header -->
         <div class="login-header">
             <div class="logo-box"></div>
             <h1>Clinical Pathway</h1>

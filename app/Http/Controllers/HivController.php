@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class HivController extends Controller
 {
@@ -19,7 +21,7 @@ class HivController extends Controller
                 'h.created_at'
             )
             ->orderByDesc('h.created_at')
-            ->paginate(50); // ✅ Ini yang paling penting!
+            ->paginate(50);
 
         return view('hiv.index', compact('pasien'));
     }
@@ -38,7 +40,10 @@ class HivController extends Controller
             return back()->with('error', 'Data pasien tidak ditemukan.');
         }
 
-        return view('hiv.create', compact('data'));
+        $dokter = $this->getDokterList();
+        $petugas = $this->getPetugasList();
+
+        return view('hiv.create', compact('data', 'dokter', 'petugas'));
     }
 
     public function store(Request $request)
@@ -47,6 +52,9 @@ class HivController extends Controller
             'no_rawat' => 'required',
             'hari_penyakit_ke' => 'required|array',
             'hari_rawat_ke' => 'required|array',
+            'kd_dokter' => 'required',
+            'id_petugas' => 'required',
+
         ]);
 
         DB::table('hiv_clinical_pathways')->insert([
@@ -137,7 +145,8 @@ class HivController extends Controller
             'surat_pengantar_control' => $request->surat_pengantar_control ?? 0,
             'kriteria_pulang' => $request->kriteria_pulang,
             'varian' => $request->varian,
-
+            'kd_dokter' => $request->kd_dokter,
+            'id_petugas' => $request->id_petugas,
 
             'created_at' => now(),
             'updated_at' => now(),
@@ -146,27 +155,54 @@ class HivController extends Controller
         return redirect()->route('hiv.index')->with('success', 'Data berhasil disimpan.');
     }
 
-    /**
-     * PRIVATE FUNCTION: ambil detail pasien
-     */
-    // private function getPatient($no_rawat)
+    public function destroy($id)
+    {
+        try {
+            $deleted = DB::table('hiv_clinical_pathways')
+                ->where('id', $id)
+                ->delete();
+
+            if ($deleted) {
+                return redirect()
+                    ->route('hiv.index')
+                    ->with('success', 'Data berhasil dihapus.');
+            }
+
+            return redirect()
+                ->route('hiv.index')
+                ->with('error', 'Data tidak ditemukan.');
+
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('hiv.index')
+                ->with('error', 'Gagal menghapus data.');
+        }
+    }
+
+    // public function destroy(Request $request)
     // {
-    //     return DB::table('reg_periksa as r')
-    //         ->join('pasien as p', 'p.no_rkm_medis', '=', 'r.no_rkm_medis')
-    //         ->select(
-    //             'r.no_rawat',
-    //             'p.nm_pasien as nama_pasien',
-    //             'p.jk',
-    //             DB::raw('TIMESTAMPDIFF(YEAR, p.tgl_lahir, CURDATE()) as usia'),
-    //             'r.tgl_registrasi as tgl_masuk',
-    //             'r.tgl_keluar',
-    //             DB::raw('DATEDIFF(r.tgl_keluar, r.tgl_registrasi) as lama_rawat'),
-    //             'r.kd_kamar',
-    //             'r.diagnosa_awal',
-    //             'r.rujukan'
-    //         )
-    //         ->where('r.no_rawat', $no_rawat)
-    //         ->first();
+    //     $no_rawat = $request->no_rawat;
+
+    //     try {
+    //         $deleted = DB::table('dm_clinical_pathways')
+    //             ->where('no_rawat', $no_rawat)
+    //             ->delete();
+
+    //         if ($deleted) {
+    //             return redirect()
+    //                 ->route('dm.index')
+    //                 ->with('success', 'Data berhasil dihapus.');
+    //         }
+
+    //         return redirect()
+    //             ->route('dm.index')
+    //             ->with('error', 'Data tidak ditemukan.');
+    //     } catch (\Exception $e) {
+
+    //         return redirect()
+    //             ->route('dm.index')
+    //             ->with('error', 'Gagal menghapus data.');
+    //     }
     // }
 
     public function getPatient($no_rawat)
@@ -239,7 +275,7 @@ class HivController extends Controller
 
         $data = DB::table('reg_periksa as r')
             ->join('pasien as p', 'p.no_rkm_medis', '=', 'r.no_rkm_medis')
-            ->where('p.no_rkm_medis', 'LIKE', "$no_rm%") 
+            ->where('p.no_rkm_medis', 'LIKE', "$no_rm%")
             ->select(
                 'r.no_rawat',
                 'p.no_rkm_medis as no_rm',
@@ -252,4 +288,241 @@ class HivController extends Controller
 
         return response()->json(['data' => $data]);
     }
+
+    private function getDokterList()
+    {
+        return DB::table('dokter')
+            ->select('kd_dokter', 'nm_dokter')
+            ->orderBy('nm_dokter')
+            ->get();
+    }
+
+    private function getPetugasList()
+    {
+        return DB::table('pegawai')
+            ->select('id', 'nama')
+            ->orderBy('nama')
+            ->get();
+    }
+
+    // public function show($no_rawat)
+    // {
+    //     $no_rawat = urldecode($no_rawat);
+
+    //     $data = DB::table('hiv_clinical_pathways as h')
+
+    //         ->leftJoin('dokter as d', 'h.kd_dokter', '=', 'd.kd_dokter')
+    //         ->leftJoin('pegawai as pg', 'h.id_petugas', '=', 'pg.id')
+
+    //         ->join('reg_periksa as r', 'h.no_rawat', '=', 'r.no_rawat')
+    //         ->join('pasien as p', 'r.no_rkm_medis', '=', 'p.no_rkm_medis')
+
+    //         ->select(
+    //             'h.*',
+
+    //             'p.no_rkm_medis as no_rm',
+    //             'p.nm_pasien as nm_pasien',
+    //             'p.jk',
+    //             'p.umur',
+
+    //             'd.nm_dokter',
+    //             'pg.nama as nama_petugas',
+
+    //             'r.tgl_registrasi',
+    //             'h.created_at'
+    //         )
+
+    //         ->where('h.no_rawat', $no_rawat)
+    //         ->first();
+
+    //     if (!$data) {
+    //         return redirect()
+    //             ->route('hiv.index')
+    //             ->with('error', 'Data tidak ditemukan');
+    //     }
+
+    //     // potong umur
+    //     preg_match('/\d+\s*Th/', $data->umur, $matches);
+    //     $data->umur_tahun = $matches[0] ?? $data->umur;
+
+    //     return view('hiv.show', compact('data'));
+    // }
+
+    public function show($no_rawat)
+    {
+        $no_rawat = urldecode($no_rawat);
+
+        $data = DB::table('hiv_clinical_pathways as h')
+
+            ->leftJoin('dokter as d', 'h.kd_dokter', '=', 'd.kd_dokter')
+            ->leftJoin('pegawai as pg', 'h.id_petugas', '=', 'pg.id')
+
+            ->join('reg_periksa as r', 'h.no_rawat', '=', 'r.no_rawat')
+            ->join('pasien as p', 'r.no_rkm_medis', '=', 'p.no_rkm_medis')
+
+            ->select(
+                'h.*',
+
+                'p.no_rkm_medis as no_rm',
+                'p.nm_pasien as nm_pasien',
+                'p.jk',
+                'p.umur',
+
+                'd.nm_dokter',
+                'pg.nama as nama_petugas',
+
+                'r.tgl_registrasi',
+                'h.created_at'
+            )
+
+            ->where('h.no_rawat', $no_rawat)
+            ->first();
+
+        if (!$data) {
+            return redirect()
+                ->route('hiv.index')
+                ->with('error', 'Data tidak ditemukan');
+        }
+
+        // potong umur
+        preg_match('/\d+\s*Th/', $data->umur, $matches);
+        $data->umur_tahun = $matches[0] ?? $data->umur;
+
+        return view('hiv.show', compact('data'));
+    }
+
+    public function exportPdf($no_rawat)
+    {
+        $no_rawat = urldecode($no_rawat);
+
+        $data = DB::table('hiv_clinical_pathways as h')
+            ->leftJoin('dokter as d', 'h.kd_dokter', '=', 'd.kd_dokter')
+            ->leftJoin('pegawai as pg', 'h.id_petugas', '=', 'pg.id')
+            ->join('reg_periksa as r', 'h.no_rawat', '=', 'r.no_rawat')
+            ->join('pasien as p', 'r.no_rkm_medis', '=', 'p.no_rkm_medis')
+            ->select(
+                'h.*',
+                'p.no_rkm_medis as no_rm',
+                'p.nm_pasien as nm_pasien',
+                'p.jk',
+                'p.umur',
+                'd.nm_dokter',
+                'pg.nama as nama_petugas',
+                'r.tgl_registrasi',
+                'h.created_at'
+            )
+            ->where('h.no_rawat', $no_rawat)
+            ->first();
+
+        if (!$data) {
+            return redirect()
+                ->route('hiv.index')
+                ->with('error', 'Data tidak ditemukan');
+        }
+
+        if (isset($data->umur)) {
+            preg_match('/\d+\s*Th/', $data->umur, $matches);
+            $data->umur_tahun = $matches[0] ?? $data->umur;
+        } else {
+            $data->umur_tahun = '-';
+        }
+
+        $logoPath = public_path('image/logorsb.jpg');
+        $logoBase64 = '';
+
+        if (file_exists($logoPath)) {
+            $imageData = file_get_contents($logoPath);
+            $base64 = base64_encode($imageData);
+            $logoBase64 = 'data:image/jpeg;base64,' . $base64;
+        }
+
+        $pdf = Pdf::loadView('hiv.pdf', [
+            'data' => $data,
+            'logoBase64' => $logoBase64  
+        ])
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'defaultFont' => 'sans-serif'
+            ]);
+
+        $fileName = 'HIV_Clinical_Pathway_' . str_replace('/', '_', $no_rawat) . '_' . date('Ymd_His') . '.pdf';
+
+        return $pdf->download($fileName);
+    }
+
+
+    /**
+     * PRIVATE FUNCTION: ambil detail pasien
+     */
+    // private function getPatient($no_rawat)
+    // {
+    //     return DB::table('reg_periksa as r')
+    //         ->join('pasien as p', 'p.no_rkm_medis', '=', 'r.no_rkm_medis')
+    //         ->select(
+    //             'r.no_rawat',
+    //             'p.nm_pasien as nama_pasien',
+    //             'p.jk',
+    //             DB::raw('TIMESTAMPDIFF(YEAR, p.tgl_lahir, CURDATE()) as usia'),
+    //             'r.tgl_registrasi as tgl_masuk',
+    //             'r.tgl_keluar',
+    //             DB::raw('DATEDIFF(r.tgl_keluar, r.tgl_registrasi) as lama_rawat'),
+    //             'r.kd_kamar',
+    //             'r.diagnosa_awal',
+    //             'r.rujukan'
+    //         )
+    //         ->where('r.no_rawat', $no_rawat)
+    //         ->first();
+    // }
+
+
+        // public function exportPdf($no_rawat)
+    // {
+    //     $no_rawat = urldecode($no_rawat);
+
+    //     $data = DB::table('hiv_clinical_pathways as h')
+    //         ->leftJoin('dokter as d', 'h.kd_dokter', '=', 'd.kd_dokter')
+    //         ->leftJoin('pegawai as pg', 'h.id_petugas', '=', 'pg.id')
+    //         ->join('reg_periksa as r', 'h.no_rawat', '=', 'r.no_rawat')
+    //         ->join('pasien as p', 'r.no_rkm_medis', '=', 'p.no_rkm_medis')
+    //         ->select(
+    //             'h.*',
+    //             'p.no_rkm_medis as no_rm',
+    //             'p.nm_pasien as nm_pasien',
+    //             'p.jk',
+    //             'p.umur',
+    //             'd.nm_dokter',
+    //             'pg.nama as nama_petugas',
+    //             'r.tgl_registrasi',
+    //             'h.created_at'
+    //         )
+    //         ->where('h.no_rawat', $no_rawat)
+    //         ->first();
+
+    //     if (!$data) {
+    //         return redirect()
+    //             ->route('hiv.index')
+    //             ->with('error', 'Data tidak ditemukan');
+    //     }
+
+    //     // Potong umur
+    //     preg_match('/\d+\s*Th/', $data->umur, $matches);
+    //     $data->umur_tahun = $matches[0] ?? $data->umur;
+
+    //     // Generate PDF
+    //     $pdf = Pdf::loadView('hiv.pdf', compact('data'))
+    //         ->setPaper('a4', 'portrait')
+    //         ->setOptions([
+    //             'isHtml5ParserEnabled' => true,
+    //             'isRemoteEnabled' => true,
+    //             'defaultFont' => 'sans-serif',
+    //             'enable_php' => true
+    //         ]);
+
+    //     // Download dengan nama file yang jelas
+    //     $fileName = 'HIV_Clinical_Pathway_' . str_replace('/', '_', $no_rawat) . '_' . date('Ymd_His') . '.pdf';
+
+    //     return $pdf->download($fileName);
+    // }
 }

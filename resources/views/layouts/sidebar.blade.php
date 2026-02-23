@@ -48,19 +48,18 @@
     }
 
     .sidebar-logo-icon {
-    width: 48px;
-    height: 48px;
-    background-image: url('{{ asset('image/logorsb.jpg') }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-}
-
+        width: 48px;
+        height: 48px;
+        background-image: url('{{ asset('image/logorsb.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
 
     .sidebar-logo-text h1 {
         font-size: 20px;
@@ -96,11 +95,12 @@
         transform: scale(1.05);
     }
 
+    /* Floating Toggle Button */
     .floating-toggle {
         position: fixed;
         top: 20px;
         left: 20px;
-        z-index: 999;
+        z-index: 1001;
         background: #234C6A;
         border: none;
         color: #E3E3E3;
@@ -113,6 +113,7 @@
         cursor: pointer;
         box-shadow: 0 4px 12px rgba(27, 60, 83, 0.4);
         transition: all 0.3s ease;
+        pointer-events: auto;
     }
 
     .floating-toggle:hover {
@@ -121,8 +122,36 @@
         box-shadow: 0 6px 16px rgba(27, 60, 83, 0.5);
     }
 
-    .floating-toggle.show {
-        display: flex;
+    /* Show floating button when needed */
+    .floating-toggle.visible {
+        display: flex !important;
+    }
+
+    /* Hide floating button explicitly */
+    .floating-toggle.hidden {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* Mobile Overlay */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+        opacity: 1;
     }
 
     .sidebar-user {
@@ -220,29 +249,18 @@
     }
 
     .sidebar-menu-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
+        font-size: 16px;
         flex-shrink: 0;
     }
 
     .sidebar-menu-text {
         flex: 1;
         font-size: 14px;
-    }
-
-    .sidebar-menu-badge {
-        background: #E3E3E3;
-        color: #1B3C53;
-        font-size: 11px;
-        font-weight: bold;
-        padding: 2px 8px;
-        border-radius: 12px;
-        min-width: 20px;
-        text-align: center;
     }
 
     .sidebar-footer {
@@ -268,6 +286,7 @@
         color: #E3E3E3;
     }
 
+    /* RESPONSIVE */
     @media (max-width: 768px) {
         .sidebar {
             transform: translateX(-280px);
@@ -276,27 +295,36 @@
         .sidebar.show {
             transform: translateX(0);
         }
+    }
 
+    @media (max-width: 480px) {
         .floating-toggle {
-            display: flex !important;
+            top: 16px;
+            left: 16px;
+            width: 44px;
+            height: 44px;
         }
     }
 </style>
 
-<button class="floating-toggle" id="floatingToggle" onclick="toggleSidebar()">
-    <span style="font-size: 24px;">☰</span>
+<!-- Floating Toggle Button -->
+<button class="floating-toggle" id="floatingToggle" onclick="toggleSidebar()" type="button">
+    <i class="fas fa-bars"></i>
 </button>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-        <a href="{{ route('dashboard') }}" class="sidebar-logo">
+        <a href="{{ route('dashboard.index') }}" class="sidebar-logo">
             <div class="sidebar-logo-icon"></div>
             <div class="sidebar-logo-text">
                 <h1>Clinical Pathway</h1>
             </div>
         </a>
-        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar">
-            <span style="font-size: 20px;">«</span>
+        <button class="sidebar-toggle-btn" onclick="toggleSidebar()" title="Toggle Sidebar" type="button">
+            <i class="fas fa-angle-double-left"></i>
         </button>
     </div>
 
@@ -314,8 +342,8 @@
         <div class="sidebar-nav-section">
             <div class="sidebar-nav-title">Main Menu</div>
             
-            <a href="{{ route('dashboard') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <span class="sidebar-menu-icon">📊</span>
+            <a href="{{ route('dashboard.index') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-home"></i></span>
                 <span class="sidebar-menu-text">Dashboard</span>
             </a>
         </div>
@@ -324,8 +352,38 @@
             <div class="sidebar-nav-title">Daftar Pathway</div>
             
             <a href="{{ route('hiv.index') }}" class="sidebar-menu-item {{ request()->routeIs('hiv.*') ? 'active' : '' }}">
-                <span class="sidebar-menu-icon">🔬</span>
+                <span class="sidebar-menu-icon"><i class="fas fa-virus"></i></span>
                 <span class="sidebar-menu-text">HIV</span>
+            </a>
+
+            <a href="{{ route('bph.index') }}" class="sidebar-menu-item {{ request()->routeIs('bph.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-male"></i></span>
+                <span class="sidebar-menu-text">BPH</span>
+            </a>
+
+            <a href="{{ route('peb.index') }}" class="sidebar-menu-item {{ request()->routeIs('peb.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-baby"></i></span>
+                <span class="sidebar-menu-text">PEB</span>
+            </a>
+
+            <a href="{{ route('dm.index') }}" class="sidebar-menu-item {{ request()->routeIs('dm.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-syringe"></i></span>
+                <span class="sidebar-menu-text">Diabetes</span>
+            </a>
+
+            <a href="{{ route('jntg.index') }}" class="sidebar-menu-item {{ request()->routeIs('jntg.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-heartbeat"></i></span>
+                <span class="sidebar-menu-text">Jantung</span>
+            </a>
+
+            <a href="{{ route('typh.index') }}" class="sidebar-menu-item {{ request()->routeIs('typh.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-thermometer-half"></i></span>
+                <span class="sidebar-menu-text">Typhoid Anak</span>
+            </a>
+
+            <a href="{{ route('dyps.index') }}" class="sidebar-menu-item {{ request()->routeIs('dyps.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-lungs-virus"></i></span>
+                <span class="sidebar-menu-text">Dyspepsia</span>
             </a>
         </div>
 
@@ -333,9 +391,9 @@
             <div class="sidebar-nav-title">Laporan</div>
             
             <a href="{{ route('statistik.index') }}" class="sidebar-menu-item {{ request()->routeIs('statistik.*') ? 'active' : '' }}">
-                <span class="sidebar-menu-icon">📈</span>
+                <span class="sidebar-menu-icon"><i class="fas fa-chart-line"></i></span>
                 <span class="sidebar-menu-text">Statistik</span>
-            </a>
+            </a>    
         </div>
     </nav>
 
@@ -343,7 +401,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="sidebar-footer-btn" style="width: 100%; border: none; cursor: pointer; font-family: inherit;">
-                <span class="sidebar-menu-icon">🚪</span>
+                <span class="sidebar-menu-icon"><i class="fas fa-sign-out-alt"></i></span>
                 <span class="sidebar-menu-text">Logout</span>
             </button>
         </form>
@@ -355,35 +413,110 @@
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('mainContent');
         const floatingToggle = document.getElementById('floatingToggle');
+        const overlay = document.getElementById('sidebarOverlay');
+        const isMobile = window.innerWidth <= 768;
         
-        sidebar.classList.toggle('collapsed');
-        mainContent.classList.toggle('sidebar-collapsed');
-        floatingToggle.classList.toggle('show');
-        
-        if (sidebar.classList.contains('collapsed')) {
-            localStorage.setItem('sidebarCollapsed', 'true');
+        if (isMobile) {
+            const isOpen = sidebar.classList.contains('show');
+            
+            if (isOpen) {
+                // Close sidebar
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+                // Show button
+                floatingToggle.classList.remove('hidden');
+                floatingToggle.classList.add('visible');
+                document.body.style.overflow = 'auto';
+            } else {
+                // Open sidebar
+                sidebar.classList.add('show');
+                overlay.classList.add('show');
+                // Hide button
+                floatingToggle.classList.remove('visible');
+                floatingToggle.classList.add('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         } else {
-            localStorage.setItem('sidebarCollapsed', 'false');
+            // Desktop behavior
+            sidebar.classList.toggle('collapsed');
+            if (mainContent) {
+                mainContent.classList.toggle('sidebar-collapsed');
+            }
+            floatingToggle.classList.toggle('visible');
+            
+            localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+    function closeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const floatingToggle = document.getElementById('floatingToggle');
         
-        if (sidebarCollapsed) {
-            document.getElementById('sidebar').classList.add('collapsed');
-            document.getElementById('mainContent').classList.add('sidebar-collapsed');
-            document.getElementById('floatingToggle').classList.add('show');
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+        floatingToggle.classList.remove('hidden');
+        floatingToggle.classList.add('visible');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const floatingToggle = document.getElementById('floatingToggle');
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // Mobile: show button, hide sidebar
+            floatingToggle.classList.add('visible');
+            sidebar.classList.remove('show');
+        } else {
+            // Desktop: restore state
+            const collapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (collapsed) {
+                sidebar.classList.add('collapsed');
+                if (mainContent) {
+                    mainContent.classList.add('sidebar-collapsed');
+                }
+                floatingToggle.classList.add('visible');
+            }
         }
+        
+        // Auto-close on menu click (mobile)
+        document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    setTimeout(closeSidebar, 100);
+                }
+            });
+        });
     });
 
-    document.addEventListener('click', function(event) {
-        if (window.innerWidth <= 768) {
-            const sidebar = document.getElementById('sidebar');
-            const floatingToggle = document.getElementById('floatingToggle');
+    window.addEventListener('resize', function() {
+        const sidebar = document.getElementById('sidebar');
+        const floatingToggle = document.getElementById('floatingToggle');
+        const overlay = document.getElementById('sidebarOverlay');
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            const isOpen = sidebar.classList.contains('show');
+            if (isOpen) {
+                floatingToggle.classList.add('hidden');
+                floatingToggle.classList.remove('visible');
+            } else {
+                floatingToggle.classList.remove('hidden');
+                floatingToggle.classList.add('visible');
+            }
+        } else {
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
             
-            if (!sidebar.contains(event.target) && !floatingToggle.contains(event.target)) {
-                sidebar.classList.remove('show');
+            const collapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (collapsed) {
+                floatingToggle.classList.add('visible');
+            } else {
+                floatingToggle.classList.remove('visible');
             }
         }
     });

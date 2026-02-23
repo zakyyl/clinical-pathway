@@ -180,7 +180,12 @@
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
         <div>
             <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 8px; color: #E3E3E3;">📊 Statistik & Laporan</h2>
-            <p style="opacity: 0.95; font-size: 16px; color: #E3E3E3;">Analisis data HIV Clinical Pathway</p>
+            {{-- <p style="opacity: 0.95; font-size: 16px; color: #E3E3E3;">Analisis data HIV Clinical Pathway</p> --}}
+            <p style="opacity: 0.95; font-size: 16px; color: #E3E3E3;">
+Analisis data 
+{{ request('penyakit') ? strtoupper(request('penyakit')) : 'Semua' }} 
+Clinical Pathway
+</p>
             @if(request('bulan_dari') || request('bulan_sampai'))
             <div class="info-badge" style="margin-top: 12px;">
                 <span>📅</span>
@@ -204,6 +209,23 @@
     </div>
 
     <form method="GET" action="{{ route('statistik.index') }}">
+        <div class="form-group">
+    <label for="penyakit">Jenis Pathway:</label>
+
+    <select name="penyakit" id="penyakit" class="form-control">
+        <option value="">Semua Penyakit</option>
+
+        <option value="hiv" {{ request('penyakit')=='hiv' ? 'selected' : '' }}>HIV</option>
+        <option value="dm" {{ request('penyakit')=='dm' ? 'selected' : '' }}>Diabetes (DM)</option>
+        <option value="bph" {{ request('penyakit')=='bph' ? 'selected' : '' }}>BPH</option>
+        <option value="typh" {{ request('penyakit')=='typh' ? 'selected' : '' }}>Typhoid</option>
+        <option value="jntg" {{ request('penyakit')=='jntg' ? 'selected' : '' }}>Jantung</option>
+        <option value="peb" {{ request('penyakit')=='peb' ? 'selected' : '' }}>PEB</option>
+        <option value="dyps" {{ request('penyakit')=='dyps' ? 'selected' : '' }}>Dispepsia</option>
+
+    </select>
+</div>
+
         <div class="filter-group">
             <div class="form-group">
                 <label for="bulan_dari">Dari Bulan:</label>

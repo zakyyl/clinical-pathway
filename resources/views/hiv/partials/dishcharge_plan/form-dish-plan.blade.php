@@ -13,7 +13,7 @@
                     <td class="cell-label">
                         <div class="label-content">
                             <span class="label-prefix">a.</span>
-                            <span class="label-text">Diagnosis Keperawatan</span>
+                            <span class="label-text">Dishcharge Planning</span>
                         </div>
                     </td>
                     <td class="cell-checkbox">

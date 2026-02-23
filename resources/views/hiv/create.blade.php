@@ -143,6 +143,11 @@
                 <span class="tab-number">16</span>
                 <span class="tab-text">Varian</span>
             </button>
+
+            <button type="button" class="tab-btn" data-tab="dokpes" data-index="16" disabled>
+                <span class="tab-number">17</span>
+                <span class="tab-text">PJ</span>
+            </button>
         </div>
 
         <!-- Tab Content -->
@@ -299,6 +304,13 @@
                     <h2>VARIAN</h2>
                 </div>
                 @include('hiv.partials.varian.form-varian')
+            </div>
+
+            <div class="tab-content-item" id="tab-dokpes">
+                <div class="section-header">
+                    <h2>Form Penanggung Jawab</h2>
+                </div>
+                @include('dyps.partials.form-dokpes')
             </div>
 
         </div>

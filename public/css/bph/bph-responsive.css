@@ -1,0 +1,611 @@
+/* ============================================ */
+/* BPH FORM - RESPONSIVE STYLES */
+/* ============================================ */
+
+/* Tablet Landscape (1024px and below) */
+@media (max-width: 1024px) {
+    .patient-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tabs-header {
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .tab-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .tab-number {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+    }
+}
+
+/* Tablet Portrait (768px and below) */
+@media (max-width: 768px) {
+    /* Page Header */
+    .modern-page-header {
+        padding: 24px 20px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .icon-wrapper {
+        width: 56px;
+        height: 56px;
+    }
+
+    .page-title {
+        font-size: 22px;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+    }
+
+    /* Progress Container */
+    .progress-container {
+        padding: 20px;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .progress-bar {
+        height: 10px;
+        margin-bottom: 10px;
+    }
+
+    .progress-text {
+        font-size: 13px;
+    }
+
+    /* Patient Info */
+    .patient-info-card {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .card-header-custom {
+        padding: 16px 20px;
+        gap: 10px;
+    }
+
+    .card-header-custom h4 {
+        font-size: 16px;
+    }
+
+    .card-header-custom svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .patient-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .info-label {
+        font-size: 11px;
+    }
+
+    .info-value {
+        font-size: 15px;
+    }
+
+    /* Form Section */
+    .form-section-card {
+        padding: 20px;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    /* Tabs */
+    .modern-tabs-wrapper {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .tabs-header {
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .tab-btn {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        border-radius: 8px;
+    }
+
+    .tab-number {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .tab-text {
+        font-size: 14px;
+    }
+
+    .tabs-content {
+        padding: 20px;
+    }
+
+    /* Section Header */
+    .section-header {
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+    }
+
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .section-subtitle {
+        font-size: 13px;
+    }
+
+    /* Form Actions */
+    .form-actions {
+        flex-direction: column-reverse;
+        gap: 12px;
+        padding: 20px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .btn-primary-action,
+    .btn-secondary-action,
+    .btn-submit-action {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    .btn-primary-action svg,
+    .btn-secondary-action svg,
+    .btn-submit-action svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Mobile Landscape (640px and below) */
+@media (max-width: 640px) {
+    .modern-page-header {
+        padding: 20px 16px;
+        margin: 0;
+    }
+
+    .icon-wrapper {
+        width: 52px;
+        height: 52px;
+    }
+
+    .icon-wrapper svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .page-title {
+        font-size: 20px;
+    }
+
+    .progress-container {
+        padding: 16px;
+        margin: 0;
+    }
+
+    .progress-bar {
+        height: 8px;
+    }
+
+    .progress-text {
+        font-size: 12px;
+    }
+
+    .patient-info-card {
+        margin: 0;
+    }
+
+    .card-header-custom {
+        padding: 14px 16px;
+    }
+
+    .card-header-custom h4 {
+        font-size: 15px;
+    }
+
+    .patient-info-grid {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .info-value {
+        font-size: 14px;
+    }
+
+    .form-section-card {
+        padding: 16px;
+        margin: 0;
+    }
+
+    .modern-tabs-wrapper {
+        margin: 0;
+    }
+
+    .tabs-header {
+        padding: 10px;
+        gap: 6px;
+    }
+
+    .tab-btn {
+        padding: 10px 14px;
+    }
+
+    .tab-number {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .tab-text {
+        font-size: 13px;
+    }
+
+    .tabs-content {
+        padding: 16px;
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 18px;
+    }
+
+    .form-actions {
+        padding: 16px;
+        gap: 10px;
+    }
+
+    .btn-primary-action,
+    .btn-secondary-action,
+    .btn-submit-action {
+        padding: 11px 20px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+}
+
+/* Mobile Portrait (480px and below) */
+@media (max-width: 480px) {
+    .modern-page-header {
+        padding: 16px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .header-content {
+        gap: 12px;
+    }
+
+    .icon-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+    }
+
+    .icon-wrapper svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .page-title {
+        font-size: 18px;
+    }
+
+    .page-subtitle {
+        font-size: 12px;
+    }
+
+    .progress-container {
+        padding: 14px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .progress-bar {
+        height: 6px;
+        margin-bottom: 8px;
+    }
+
+    .progress-text {
+        font-size: 11px;
+    }
+
+    .patient-info-card {
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .card-header-custom {
+        padding: 12px 14px;
+        gap: 8px;
+    }
+
+    .card-header-custom h4 {
+        font-size: 14px;
+    }
+
+    .card-header-custom svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .patient-info-grid {
+        padding: 14px;
+        gap: 14px;
+    }
+
+    .info-label {
+        font-size: 10px;
+    }
+
+    .info-value {
+        font-size: 13px;
+    }
+
+    .form-section-card {
+        padding: 14px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .modern-tabs-wrapper {
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .tabs-header {
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .tab-btn {
+        padding: 10px 12px;
+        border-radius: 8px;
+    }
+
+    .tab-number {
+        width: 26px;
+        height: 26px;
+        font-size: 11px;
+    }
+
+    .tab-text {
+        font-size: 12px;
+    }
+
+    .tabs-content {
+        padding: 14px;
+    }
+
+    .section-header {
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom-width: 2px;
+    }
+
+    .section-header h2 {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .section-subtitle {
+        font-size: 12px;
+    }
+
+    .form-actions {
+        padding: 14px;
+        gap: 8px;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .btn-primary-action,
+    .btn-secondary-action,
+    .btn-submit-action {
+        padding: 10px 18px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    .btn-primary-action svg,
+    .btn-secondary-action svg,
+    .btn-submit-action svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Extra Small Mobile (360px and below) */
+@media (max-width: 360px) {
+    .modern-page-header {
+        padding: 14px;
+    }
+
+    .icon-wrapper {
+        width: 44px;
+        height: 44px;
+    }
+
+    .icon-wrapper svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+
+    .page-subtitle {
+        font-size: 11px;
+    }
+
+    .progress-container {
+        padding: 12px;
+    }
+
+    .card-header-custom {
+        padding: 10px 12px;
+    }
+
+    .card-header-custom h4 {
+        font-size: 13px;
+    }
+
+    .patient-info-grid {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .info-value {
+        font-size: 12px;
+    }
+
+    .form-section-card {
+        padding: 12px;
+    }
+
+    .tabs-content {
+        padding: 12px;
+    }
+
+    .section-header h2 {
+        font-size: 15px;
+    }
+
+    .tab-btn {
+        padding: 8px 10px;
+    }
+
+    .tab-number {
+        width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+
+    .tab-text {
+        font-size: 11px;
+    }
+
+    .form-actions {
+        padding: 12px;
+    }
+
+    .btn-primary-action,
+    .btn-secondary-action,
+    .btn-submit-action {
+        padding: 9px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .tab-btn:not(:disabled):hover {
+        transform: none;
+    }
+
+    .tab-btn:not(:disabled):active {
+        transform: scale(0.98);
+    }
+
+    .btn-primary-action:hover,
+    .btn-secondary-action:hover,
+    .btn-submit-action:hover {
+        transform: none;
+    }
+
+    .btn-primary-action:active,
+    .btn-secondary-action:active,
+    .btn-submit-action:active {
+        transform: scale(0.98);
+    }
+
+    .icon-wrapper:hover {
+        transform: none;
+    }
+
+    .icon-wrapper:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Landscape orientation fix for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modern-page-header {
+        padding: 12px 20px;
+    }
+
+    .header-content {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+
+    .page-title {
+        font-size: 16px;
+    }
+
+    .progress-container {
+        padding: 12px 20px;
+    }
+
+    .tabs-content {
+        padding: 16px 20px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .modern-page-header,
+    .progress-container,
+    .form-actions,
+    .tabs-header {
+        display: none;
+    }
+
+    .modern-tabs-wrapper {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    .tab-content-item {
+        display: block !important;
+        page-break-after: always;
+    }
+
+    .tab-content-item:last-child {
+        page-break-after: auto;
+    }
+}

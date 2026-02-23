@@ -38,6 +38,23 @@
         box-shadow: 0 4px 12px rgba(27, 60, 83, 0.3);
     }
 
+        .btn-show {
+        background: #1B3C53;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 50;
+        display: inline-flex;
+        align-items: center;
+        gap: 2px;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(27, 60, 83, 0.3);
+    }
+
+
     .btn-add:hover {
         background: #234C6A;
         transform: translateY(-2px);
@@ -217,7 +234,6 @@
         margin-top: 8px;
     }
 
-    /* Responsive Table */
     @media (max-width: 768px) {
         .page-header {
             flex-direction: column;
@@ -247,8 +263,8 @@
 </style>
 <div class="page-header">
     <h1 class="page-title">
-        <span>🔬</span>
-        Daftar Clinical Pathway HIV
+        <span></span>
+        Data Clinical Pathway HIV
     </h1>
     <button class="btn-add" onclick="window.location.href='{{ route('hiv.create') }}'">
         Tambah Pasien
@@ -275,7 +291,12 @@
                 <td>{{ $row->no_rm }}</td>
                 <td>{{ $row->nama_pasien }}</td>
                 <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y H:i') }}</td>
-                <td>Lihat Detail</td>
+                <td class="text-center">
+                    <a href="{{ route('hiv.show', urlencode($row->no_rawat)) }}" class="btn-show">
+                        Lihat Detail
+                    </a>
+                </td>
+
             </tr>
             @empty
             <tr>
@@ -292,21 +313,18 @@
     </table>
 </div>
 
-{{-- ✅ PAGINATION --}}
 @if($pasien->hasPages())
 <div class="pagination-wrapper" style="margin-top: 20px; display: flex; justify-content: center;">
     {{ $pasien->links() }}
 </div>
 @endif
 
-{{-- ✅ TAMBAHAN: Info total data --}}
 <div style="text-align: center; margin-top: 10px; color: #666; font-size: 14px;">
     Menampilkan {{ $pasien->firstItem() ?? 0 }} - {{ $pasien->lastItem() ?? 0 }}
     dari {{ $pasien->total() }} data
 </div>
 
 <style>
-    /* Styling untuk pagination */
     .pagination-wrapper .pagination {
         display: flex;
         list-style: none;
@@ -347,7 +365,6 @@
         background: #f5f5f5;
     }
 
-    /* Empty State */
     .empty-state {
         text-align: center;
         padding: 40px 20px;

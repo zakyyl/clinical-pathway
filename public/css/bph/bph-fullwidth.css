@@ -1,0 +1,109 @@
+/* ============================================ */
+/* FULL WIDTH LAYOUT OVERRIDE */
+/* ============================================ */
+
+/* Force full width but respect sidebar */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove padding from main content wrapper only */
+#content,
+.content,
+.content-wrapper,
+main,
+.main-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Bootstrap container - only remove left/right padding */
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Keep container margin auto for centering if sidebar pushes */
+.container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Row - remove left/right negative margins */
+.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Remove col left/right padding */
+.col,
+[class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* BPH Cards - full width within content area */
+.modern-page-header,
+.patient-info-card,
+.progress-container,
+.form-section-card,
+.modern-tabs-wrapper,
+.form-actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Remove default spacing */
+.mt-4,
+.my-4,
+.mb-4 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.mx-4,
+.my-4,
+.ml-4,
+.mr-4 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Responsive: ensure mobile doesn't have issues */
+@media (max-width: 768px) {
+    /* On mobile, truly full width */
+    body {
+        overflow-x: hidden;
+    }
+    
+    .container,
+    .container-fluid {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+/* Print: restore margins */
+@media print {
+    body,
+    .container,
+    .modern-page-header,
+    .patient-info-card,
+    .modern-tabs-wrapper {
+        margin: 0 !important;
+        padding: 1cm !important;
+    }
+}
