@@ -10,9 +10,6 @@ class StatistikController extends Controller
 {
     public function index(Request $request)
 {
-    /* ===============================
-     | FILTER INPUT
-     =============================== */
 
     $bulan_dari = $request->filled('bulan_dari')
         ? $request->bulan_dari
@@ -22,25 +19,11 @@ class StatistikController extends Controller
         ? $request->bulan_sampai
         : Carbon::now()->format('Y-m');
 
-    $penyakit = $request->penyakit; // <-- filter penyakit
-
-
-
-    /* ===============================
-     | PARSE TANGGAL
-     =============================== */
+    $penyakit = $request->penyakit; 
 
     $tanggal_dari   = Carbon::parse($bulan_dari . '-01')->startOfMonth();
     $tanggal_sampai = Carbon::parse($bulan_sampai . '-01')->endOfMonth();
-
-
-
-    /* ===============================
-     | MAP TABEL
-     =============================== */
-
     $tables = [
-
         'hiv'  => 'hiv_clinical_pathways',
         'dm'   => 'dm_clinical_pathways',
         'bph'  => 'bph_clinical_pathways',
@@ -48,42 +31,25 @@ class StatistikController extends Controller
         'jntg' => 'jntg_clinical_pathways',
         'peb'  => 'peb_clinical_pathways',
         'dyps' => 'dyps_clinical_pathways',
-
+        'htsi' => 'htsi_clinical_pathways'
     ];
 
-
-
-    /* ===============================
-     | BUILD QUERY
-     =============================== */
-
-    // Kalau pilih penyakit tertentu
     if ($penyakit && isset($tables[$penyakit])) {
-
         $allPathways = DB::table($tables[$penyakit])
             ->select('created_at');
-
     }
-
-    // Kalau semua penyakit
     else {
 
         $allPathways = DB::query()
             ->from('hiv_clinical_pathways')->select('created_at')
-
             ->unionAll(DB::table('dm_clinical_pathways')->select('created_at'))
             ->unionAll(DB::table('bph_clinical_pathways')->select('created_at'))
             ->unionAll(DB::table('typh_clinical_pathways')->select('created_at'))
             ->unionAll(DB::table('jntg_clinical_pathways')->select('created_at'))
             ->unionAll(DB::table('peb_clinical_pathways')->select('created_at'))
+            ->unionAll(DB::table('htsi_clinical_pathways')->select('created_at'))
             ->unionAll(DB::table('dyps_clinical_pathways')->select('created_at'));
     }
-
-
-
-    /* ===============================
-     | STATISTIK
-     =============================== */
 
     $totalData = DB::query()
         ->fromSub($allPathways, 'all_data')
@@ -109,12 +75,6 @@ class StatistikController extends Controller
         ->whereYear('created_at', Carbon::now()->year)
         ->count();
 
-
-
-    /* ===============================
-     | CHART
-     =============================== */
-
     $chartData = $this->generateChartData(
         $tanggal_dari,
         $tanggal_sampai,
@@ -135,23 +95,10 @@ class StatistikController extends Controller
     ));
 }
 
-
-
-
-    /* =====================================
-     | GENERATE DATA GRAFIK
-     ===================================== */
-
     private function generateChartData($tanggal_dari, $tanggal_sampai, $allPathways)
     {
         $labels = [];
         $data   = [];
-
-
-        /* =====================================
-         | DATA PER BULAN (SEMUA TABEL)
-         ===================================== */
-
         $dataPerBulan = DB::query()
 
             ->fromSub($allPathways, 'all_data')
@@ -169,12 +116,6 @@ class StatistikController extends Controller
             ->get()
 
             ->keyBy('bulan');
-
-
-
-        /* =====================================
-         | LOOP BULAN
-         ===================================== */
 
         $current = $tanggal_dari->copy();
 
