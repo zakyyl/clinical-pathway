@@ -17,7 +17,7 @@
     }
 
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-columns: repeat(3, 1fr) !important;
     }
 
     .gradient-bg::before {
@@ -49,7 +49,7 @@
 
     /* Stats Grid */
     .stats-grid {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 16px !important;
         margin-bottom: 24px !important;
     }
@@ -202,6 +202,10 @@
         right: 16px;
         top: 16px;
         font-size: 60px !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
     }
 
     .stat-card {

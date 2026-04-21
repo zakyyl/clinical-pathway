@@ -1,306 +1,378 @@
-    /* Wrapper */
-    .judul-wrapper {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin-bottom: 24px;
-    }
+/* Wrapper */
+.judul-wrapper {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+}
 
-    /* Section Header */
+/* Section Header */
+.section-header-main {
+    background: #1b3c53;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+
+.section-number-main {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e3e3e3;
+}
+
+.section-title-main {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #e3e3e3;
+}
+
+/* Table Container */
+.judul-table-container {
+    padding: 24px;
+}
+
+/* Table */
+.judul-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #456882;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.judul-table thead {
+    background: #1b3c53;
+    color: white;
+}
+
+.judul-table thead th {
+    padding: 16px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(227, 227, 227, 0.2);
+    color: #e3e3e3;
+}
+
+/* Column Widths */
+.col-label {
+    width: 25%;
+    text-align: left !important;
+}
+
+.col-form {
+    width: 35%;
+}
+
+.col-keterangan {
+    width: 40%;
+}
+
+/* Table Body */
+.judul-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.judul-table tbody tr:hover {
+    background: #f8fafb;
+}
+
+.judul-table tbody td {
+    padding: 20px 16px;
+    border: 1px solid #e0e4e8;
+    vertical-align: top;
+}
+
+/* Cell Label */
+.cell-label {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.label-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.label-prefix {
+    background: #456882;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.label-text {
+    color: #212529;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Cell Checkbox */
+.cell-checkbox {
+    background: #f8fafb;
+    padding: 16px !important;
+}
+
+/* Checkbox Vertical Group */
+.checkbox-vertical-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: white;
+    border: 2px solid #456882;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    width: 100%;
+    max-width: 280px;
+}
+
+.custom-checkbox:hover {
+    background: #456882;
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(69, 104, 130, 0.3);
+}
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #456882;
+    border-radius: 4px;
+    background: white;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.custom-checkbox:hover .checkbox-box {
+    border-color: white;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-box {
+    background: #456882;
+    border-color: #456882;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-box::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+}
+
+/* Cell Keterangan */
+.cell-keterangan {
+    background: #fafbfc;
+}
+
+/* Keterangan Vertical Group */
+.keterangan-vertical-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.keterangan-text {
+    color: #495057;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 20px;
+    background: white;
+    border: 2px dashed #456882;
+    border-radius: 8px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
     .section-header-main {
-        background: #1B3C53;
-        padding: 16px 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        color: white;
+        padding: 16px;
     }
 
     .section-number-main {
-        font-size: 22px;
-        font-weight: 700;
-        color: #E3E3E3;
+        font-size: 20px;
     }
 
     .section-title-main {
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        color: #E3E3E3;
+        font-size: 16px;
     }
 
-    /* Table Container */
     .judul-table-container {
-        padding: 24px;
+        padding: 16px;
+        margin-top: 0;
+        overflow-x: visible;
     }
 
-    /* Table */
-    .judul-table {
+    .judul-table, .judul-table thead, .judul-table tbody, .judul-table th, .judul-table td, .judul-table tr {
+        display: block;
         width: 100%;
-        border-collapse: collapse;
-        border: 2px solid #456882;
-        border-radius: 8px;
-        overflow: hidden;
+        min-width: 0;
     }
 
     .judul-table thead {
-        background: #1B3C53;
-        color: white;
-    }
-
-    .judul-table thead th {
-        padding: 16px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border: 1px solid rgba(227, 227, 227, 0.2);
-        color: #E3E3E3;
-    }
-
-    /* Column Widths */
-    .col-label {
-        width: 25%;
-        text-align: left !important;
-    }
-
-    .col-form {
-        width: 35%;
-    }
-
-    .col-keterangan {
-        width: 40%;
-    }
-
-    /* Table Body */
-    .judul-table tbody tr {
-        transition: all 0.3s ease;
-    }
-
-    .judul-table tbody tr:hover {
-        background: #f8fafb;
-    }
-
-    .judul-table tbody td {
-        padding: 20px 16px;
-        border: 1px solid #e0e4e8;
-        vertical-align: top;
-    }
-
-    /* Cell Label */
-    .cell-label {
-        vertical-align: middle;
-        text-align: center;
-    }
-
-    .label-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .label-prefix {
-        background: #456882;
-        color: white;
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 16px;
-        flex-shrink: 0;
-    }
-
-    .label-text {
-        color: #212529;
-        font-size: 15px;
-        font-weight: 600;
-    }
-
-    /* Cell Checkbox */
-    .cell-checkbox {
-        background: #f8fafb;
-        padding: 16px !important;
-    }
-
-    /* Checkbox Vertical Group */
-    .checkbox-vertical-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        align-items: center;
-    }
-
-    /* Custom Checkbox */
-    .custom-checkbox {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 20px;
-        background: white;
-        border: 2px solid #456882;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        user-select: none;
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .custom-checkbox:hover {
-        background: #456882;
-        color: white;
-        transform: translateX(5px);
-        box-shadow: 0 4px 12px rgba(69, 104, 130, 0.3);
-    }
-
-    .custom-checkbox input[type="checkbox"] {
         display: none;
     }
 
-    .checkbox-box {
-        width: 20px;
-        height: 20px;
-        border: 2px solid #456882;
-        border-radius: 4px;
+    .judul-table {
+        border: none;
+    }
+
+    .judul-table tbody tr {
+        margin-bottom: 24px;
+        border: 1px solid #e0e4e8;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .judul-table tbody td {
+        border: none;
+        padding: 20px;
+        text-align: left;
+    }
+    
+    .judul-table tbody td.cell-label {
+        border-bottom: 1px dashed #e0e4e8;
+        padding-bottom: 16px;
+        background: #f8fafb;
+    }
+    
+    .judul-table tbody td.cell-label::before {
+        content: "KEGIATAN";
+        display: block;
+        font-size: 11px;
+        color: #6c757d;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+    }
+
+    .label-content {
+        justify-content: flex-start;
+    }
+
+    .judul-table tbody td.cell-checkbox {
+        padding: 20px;
         background: white;
-        position: relative;
-        transition: all 0.3s ease;
-        flex-shrink: 0;
     }
 
-    .custom-checkbox:hover .checkbox-box {
-        border-color: white;
+    .judul-table tbody td.cell-checkbox::before {
+        content: "PILIHAN";
+        display: block;
+        font-size: 11px;
+        color: #6c757d;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
     }
 
-    .custom-checkbox input[type="checkbox"]:checked+.checkbox-box {
-        background: #456882;
-        border-color: #456882;
+    .judul-table tbody td.cell-keterangan {
+        border-top: 1px dashed #e0e4e8;
+        background: #fafbfc;
+        padding: 20px;
+    }
+    
+    .judul-table tbody td.cell-keterangan::before {
+        content: "KETERANGAN";
+        display: block;
+        font-size: 11px;
+        color: #6c757d;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
     }
 
-    .custom-checkbox input[type="checkbox"]:checked+.checkbox-box::after {
-        content: '';
-        position: absolute;
-        left: 5px;
-        top: 1px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 2.5px 2.5px 0;
-        transform: rotate(45deg);
+    .custom-checkbox {
+        max-width: 100%;
+        padding: 12px 16px;
+    }
+
+    .checkbox-vertical-group, .keterangan-vertical-group {
+        width: 100%;
+        align-items: stretch;
+    }
+    
+    .keterangan-text {
+        max-width: 100%;
+        font-size: 14px;
+        padding: 12px 16px;
+    }
+
+    .label-text {
+        font-size: 15px;
     }
 
     .checkbox-label {
         font-size: 14px;
-        font-weight: 600;
-        flex: 1;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .judul-table {
+        border: 2px solid #000;
     }
 
-    /* Cell Keterangan */
-    .cell-keterangan {
-        background: #fafbfc;
+    .judul-table thead {
+        background: #e0e0e0 !important;
+        color: #000 !important;
     }
 
-    /* Keterangan Vertical Group */
-    .keterangan-vertical-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        align-items: center;
+    .section-header-main {
+        background: #e0e0e0 !important;
+        color: #000 !important;
     }
 
-    .keterangan-text {
-        color: #495057;
-        font-size: 14px;
-        font-weight: 600;
-        padding: 12px 20px;
-        background: white;
-        border: 2px dashed #456882;
-        border-radius: 8px;
-        display: block;
-        text-align: center;
-        width: 100%;
-        max-width: 280px;
+    .custom-checkbox {
+        border-color: #000;
     }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-        .judul-table-container {
-            overflow-x: auto;
-        }
-
-        .judul-table {
-            min-width: 900px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .section-header-main {
-            padding: 12px 16px;
-        }
-
-        .section-number-main {
-            font-size: 18px;
-        }
-
-        .section-title-main {
-            font-size: 16px;
-        }
-
-        .judul-table-container {
-            padding: 16px;
-        }
-
-        .judul-table thead th {
-            padding: 12px 8px;
-            font-size: 12px;
-        }
-
-        .judul-table tbody td {
-            padding: 12px 8px;
-        }
-
-        .label-text {
-            font-size: 13px;
-        }
-
-        .custom-checkbox {
-            padding: 10px 16px;
-        }
-
-        .checkbox-label {
-            font-size: 12px;
-        }
-
-        .keterangan-text {
-            font-size: 12px;
-            padding: 10px 16px;
-        }
-    }
-
-    /* Print Styles */
-    @media print {
-        .judul-table {
-            border: 2px solid #000;
-        }
-
-        .judul-table thead {
-            background: #e0e0e0 !important;
-            color: #000 !important;
-        }
-
-        .section-header-main {
-            background: #e0e0e0 !important;
-            color: #000 !important;
-        }
-
-        .custom-checkbox {
-            border-color: #000;
-        }
-    }
+}
