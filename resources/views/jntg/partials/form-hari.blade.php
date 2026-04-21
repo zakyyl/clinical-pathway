@@ -110,6 +110,9 @@
 
     .form-hari-table {
         padding: 20px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Table Styling */
@@ -120,6 +123,8 @@
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        background: white;
+        margin-bottom: 20px;
     }
 
     .table-hari thead {
@@ -289,57 +294,176 @@
 
     /* Responsive */
     @media (max-width: 1024px) {
-        .form-hari-table {
-            overflow-x: auto;
-        }
-
-        .table-hari {
-            min-width: 800px;
-        }
-    }
-
-    @media (max-width: 768px) {
         .form-hari-header {
-            padding: 12px 16px;
-        }
-
-        .form-hari-header h4 {
-            font-size: 14px;
+            padding: 16px;
         }
 
         .form-hari-table {
-            padding: 12px;
+            padding: 16px;
+            overflow-x: visible;
         }
 
-        .table-hari thead th {
-            padding: 10px 8px;
-            font-size: 11px;
+        .table-hari, .table-hari tbody, .table-hari tr, .table-hari td, .table-hari th {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            border: none;
+        }
+
+        .table-hari thead {
+            display: none;
+        }
+        
+        .table-hari {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        .table-hari tbody tr {
+            display: flex;
+            flex-wrap: wrap;
+            background: #fff;
+            border: 1px solid #e0e4e8;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 24px;
         }
 
         .table-hari tbody td {
-            padding: 8px;
-            font-size: 13px;
+            display: block;
+            padding: 8px 0;
         }
 
-        .col-number {
-            width: 40px;
+        /* KEGIATAN */
+        .table-hari tbody td:nth-child(1) {
+            width: 100%;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1B3C53;
+            border-bottom: 1px dashed #e0e4e8;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+        }
+        .table-hari tbody td:nth-child(1)::before {
+            content: "KEGIATAN";
+            display: block;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        /* URAIAN KEGIATAN */
+        .table-hari tbody td:nth-child(2) {
+            width: 100%;
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+        .table-hari tbody td:nth-child(2)::before {
+            content: "URAIAN KEGIATAN";
+            display: block;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        /* Title for Checkboxes Container */
+        .table-hari tbody td:nth-child(3) {
+            position: relative;
+        }
+        
+        .table-hari tbody td:nth-child(3)::before {
+            content: "PILIH HARI:";
+            position: absolute;
+            top: -30px;
+            left: 0;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: block;
+            width: 700%;
+            text-align: center;
+            border-bottom: 1px dashed #e0e4e8;
+            padding-bottom: 8px;
+        }
+
+        /* Checkboxes 1 to 7 wrapper to form a clean grid */
+        .table-hari tbody td.checkbox-cell {
+            width: 14.28%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding: 0;
+            margin-bottom: 12px;
+            margin-top: 32px;
+        }
+
+        .table-hari tbody td.checkbox-cell:nth-child(3)::after { content: "Hari 1"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(4)::after { content: "Hari 2"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(5)::after { content: "Hari 3"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(6)::after { content: "Hari 4"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(7)::after { content: "Hari 5"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(8)::after { content: "Hari 6"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+        .table-hari tbody td.checkbox-cell:nth-child(9)::after { content: "Hari 7"; font-size: 12px; font-weight: 600; color: #456882; margin-top: 8px; }
+
+        /* KETERANGAN */
+        .table-hari tbody td:last-child {
+            width: 100%;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px dashed #e0e4e8;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .table-hari tbody td:last-child::before {
+            content: "KETERANGAN";
+            display: block;
+            font-size: 12px;
+            color: #6c757d;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
         }
 
         .checkmark {
-            width: 20px;
-            height: 20px;
+            width: 28px;
+            height: 28px;
         }
 
         .checkbox-container .checkmark:after {
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 9px;
+            left: 9px;
+            top: 4px;
+            width: 6px;
+            height: 14px;
         }
 
         .selected-day {
-            padding: 4px 12px;
-            font-size: 12px;
+            padding: 8px 24px;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .table-hari tbody td.checkbox-cell {
+            width: 25%;
+        }
+        
+        .table-hari tbody td:nth-child(3)::before {
+            width: 400%;
         }
     }
 

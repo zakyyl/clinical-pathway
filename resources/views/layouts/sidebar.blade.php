@@ -50,7 +50,7 @@
     .sidebar-logo-icon {
         width: 48px;
         height: 48px;
-        background-image: url('{{ asset('image/logorsb.jpg') }}');
+        background-image: url('{{ asset(' image/logorsb.jpg') }}');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -341,8 +341,9 @@
     <nav class="sidebar-nav">
         <div class="sidebar-nav-section">
             <div class="sidebar-nav-title">Main Menu</div>
-            
-            <a href="{{ route('dashboard.index') }}" class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+
+            <a href="{{ route('dashboard.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-home"></i></span>
                 <span class="sidebar-menu-text">Dashboard</span>
             </a>
@@ -350,57 +351,84 @@
 
         <div class="sidebar-nav-section">
             <div class="sidebar-nav-title">Daftar Pathway</div>
-            
-            <a href="{{ route('hiv.index') }}" class="sidebar-menu-item {{ request()->routeIs('hiv.*') ? 'active' : '' }}">
+
+            <a href="{{ route('hiv.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('hiv.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-virus"></i></span>
                 <span class="sidebar-menu-text">HIV</span>
             </a>
 
-            <a href="{{ route('bph.index') }}" class="sidebar-menu-item {{ request()->routeIs('bph.*') ? 'active' : '' }}">
+            <a href="{{ route('bph.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('bph.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-male"></i></span>
                 <span class="sidebar-menu-text">BPH</span>
             </a>
 
-            <a href="{{ route('peb.index') }}" class="sidebar-menu-item {{ request()->routeIs('peb.*') ? 'active' : '' }}">
+            <a href="{{ route('peb.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('peb.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-baby"></i></span>
                 <span class="sidebar-menu-text">PEB</span>
             </a>
 
-            <a href="{{ route('dm.index') }}" class="sidebar-menu-item {{ request()->routeIs('dm.*') ? 'active' : '' }}">
+            <a href="{{ route('dm.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('dm.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-syringe"></i></span>
                 <span class="sidebar-menu-text">Diabetes</span>
             </a>
 
-            <a href="{{ route('jntg.index') }}" class="sidebar-menu-item {{ request()->routeIs('jntg.*') ? 'active' : '' }}">
+            <a href="{{ route('jntg.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('jntg.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-heartbeat"></i></span>
                 <span class="sidebar-menu-text">Jantung</span>
             </a>
 
-            <a href="{{ route('typh.index') }}" class="sidebar-menu-item {{ request()->routeIs('typh.*') ? 'active' : '' }}">
+            <a href="{{ route('typh.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('typh.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-thermometer-half"></i></span>
                 <span class="sidebar-menu-text">Typhoid Anak</span>
             </a>
 
-            <a href="{{ route('dyps.index') }}" class="sidebar-menu-item {{ request()->routeIs('dyps.*') ? 'active' : '' }}">
+            <a href="{{ route('dyps.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('dyps.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-lungs-virus"></i></span>
                 <span class="sidebar-menu-text">Dyspepsia</span>
+            </a>
+
+            <a href="{{ route('htsi.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('htsi.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fas fa-tint"></i></span>
+                <span class="sidebar-menu-text">Hipertensi</span>
             </a>
         </div>
 
         <div class="sidebar-nav-section">
             <div class="sidebar-nav-title">Laporan</div>
-            
-            <a href="{{ route('statistik.index') }}" class="sidebar-menu-item {{ request()->routeIs('statistik.*') ? 'active' : '' }}">
+
+            <a href="{{ route('statistik.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('statistik.*') ? 'active' : '' }}">
                 <span class="sidebar-menu-icon"><i class="fas fa-chart-line"></i></span>
                 <span class="sidebar-menu-text">Statistik</span>
-            </a>    
+            </a>
         </div>
+
+        @if(Auth::user()->role === 'admin')
+        <div class="sidebar-nav-section">
+            <div class="sidebar-nav-title">Setting</div>
+
+            <a href="{{ route('users.index') }}"
+                class="sidebar-menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <span class="sidebar-menu-icon"><i class="fa-solid fa-gears"></i></span>
+                <span class="sidebar-menu-text">User</span>
+            </a>
+        </div>
+        @endif
     </nav>
 
     <div class="sidebar-footer">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="sidebar-footer-btn" style="width: 100%; border: none; cursor: pointer; font-family: inherit;">
+            <button type="submit" class="sidebar-footer-btn"
+                style="width: 100%; border: none; cursor: pointer; font-family: inherit;">
                 <span class="sidebar-menu-icon"><i class="fas fa-sign-out-alt"></i></span>
                 <span class="sidebar-menu-text">Logout</span>
             </button>

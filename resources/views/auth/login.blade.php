@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Clinical Pathway</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
+
     <style>
         * {
             margin: 0;
@@ -52,9 +53,12 @@
         }
 
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) translateX(0);
             }
+
             50% {
                 transform: translateY(-30px) translateX(30px);
             }
@@ -78,6 +82,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -126,6 +131,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -205,9 +211,19 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
         }
 
         .alert-danger {
@@ -276,6 +292,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-header">
@@ -284,39 +301,22 @@
             <p>Management System</p>
         </div>
 
-        <!-- Login Card -->
         <div class="login-card">
             <h2 class="card-title">Selamat Datang</h2>
-            
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                
+
                 <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input  
-                        type="email" 
-                        id="email"
-                        name="email" 
-                        class="form-control" 
-                        placeholder="name@example.com"
-                        value="{{ old('email') }}"
-                        required 
-                        autofocus
-                    >
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Email atau Username"
+                        value="{{ old('email') }}" required autofocus>
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-toggle">
-                        <input 
-                            type="password" 
-                            id="password"
-                            name="password" 
-                            class="form-control" 
-                            placeholder="Masukkan password Anda"
-                            required
-                        >
-                        <span class="toggle-password" onclick="togglePassword()">👁</span>
+                        <input type="password" id="password" name="password" class="form-control"
+                            placeholder="Masukkan password Anda" required>
                     </div>
                 </div>
 
@@ -326,34 +326,18 @@
             </form>
         </div>
 
-        <!-- Error Alert -->
         @if ($errors->any())
-            <div class="alert alert-danger">
-                ⚠️ {{ $errors->first() }}
-            </div>
+        <div class="alert alert-danger">
+            ⚠️ {{ $errors->first() }}
+        </div>
         @endif
 
-        <!-- Footer -->
         <div class="login-footer">
             <p>© {{ date('Y') }} Clinical Pathway Management System</p>
         </div>
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.querySelector('.toggle-password');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.textContent = '👁';
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.textContent = '👁';
-            }
-        }
-
-        // Add enter key support
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
             form.addEventListener('keypress', function(e) {
@@ -364,4 +348,5 @@
         });
     </script>
 </body>
+
 </html>

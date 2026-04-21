@@ -177,6 +177,7 @@
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
+        table-layout: auto; /* Membiarkan tabel menyesuaikan lebar layar */
     }
 
     .modern-table thead {
@@ -185,14 +186,15 @@
     }
 
     .modern-table thead th {
-        padding: 20px 24px;
+        padding: 16px 20px;
         font-weight: 700;
         font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         text-align: left;
         border: none;
-        white-space: nowrap;
+        white-space: normal; /* Mengizinkan teks header untuk turun ke bawah jika sempit */
+        line-height: 1.4;
     }
 
     .modern-table tbody tr {
@@ -201,10 +203,11 @@
     }
 
     .modern-table tbody td {
-        padding: 20px 24px;
+        padding: 16px 20px;
         font-size: 14px;
         color: #334155;
         vertical-align: middle;
+        word-break: break-word; /* Mengizinkan teks isi tabel panjang untuk turun */
     }
 
     .text-center {
@@ -226,29 +229,23 @@
         min-width: 90px;
     }
 
-    .badge-hiv { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
-    .badge-bph { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-    .badge-peb { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
-    .badge-dm { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
-    .badge-jantung { background: linear-gradient(135deg, #ec4899, #db2777); color: white; }
-    .badge-typh { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-    .badge-dyps { background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; }
-
     .date-text {
         color: #64748b;
         font-size: 13px;
     }
 
+    /* Mengembalikan styling penuh dari btn-detail */
     .btn-detail {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 10px 20px;
+        justify-content: center;
+        gap: 6px; 
+        padding: 6px 14px; 
         background: linear-gradient(135deg, var(--primary), var(--accent));
         color: white;
-        border-radius: 10px;
+        border-radius: 8px; 
         font-weight: 600;
-        font-size: 13px;
+        font-size: 11px; 
         text-decoration: none;
         transition: all 0.3s ease;
         border: none;
@@ -367,6 +364,7 @@
         color: #64748b;
     }
 
+    /* Penyesuaian Responsif Layar Kecil (Mobile) */
     @media (max-width: 768px) {
         .page-container {
             padding: 16px;
@@ -389,21 +387,27 @@
             justify-content: center;
         }
 
+        /* Memperkecil padding tabel agar muat di layar HP */
         .modern-table thead th,
         .modern-table tbody td {
-            padding: 12px 16px;
-            font-size: 13px;
-        }
-
-        .btn-detail {
-            padding: 8px 16px;
+            padding: 10px 8px;
             font-size: 12px;
         }
 
-        .badge-jenis {
-            padding: 6px 12px;
+        .modern-table thead th {
             font-size: 11px;
-            min-width: 70px;
+        }
+
+        .btn-detail {
+            padding: 6px 10px;
+            font-size: 11px;
+        }
+
+        .badge-jenis {
+            padding: 4px 8px;
+            font-size: 10px;
+            min-width: auto;
+            letter-spacing: 0;
         }
 
         .pagination-wrapper {
@@ -425,23 +429,11 @@
             justify-content: center;
         }
     }
-
-    @media (max-width: 992px) {
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .modern-table {
-            min-width: 900px;
-        }
-    }
 </style>
 
 <div class="page-container">
     <div class="filter-card">
         <div class="filter-header">
-            <div class="filter-icon">🔍</div>
             <h3 class="filter-title">Filter & Pencarian</h3>
         </div>
 
@@ -449,44 +441,30 @@
             <div class="filter-form">
                 <div class="form-group">
                     <label class="form-label">Pencarian</label>
-                    <input 
-                        type="text" 
-                        name="search" 
-                        class="form-control" 
-                        placeholder="Nama, No. RM, atau No. Rawat"
-                        value="{{ request('search') }}"
-                    >
+                    <input type="text" name="search" class="form-control" placeholder="Nama, No. RM, atau No. Rawat"
+                        value="{{ request('search') }}">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Jenis Pathway</label>
                     <select name="jenis" class="form-control">
                         @foreach($jenisOptions as $key => $label)
-                            <option value="{{ $key }}" {{ request('jenis') == $key ? 'selected' : '' }}>
-                                {{ $label }}
-                            </option>
+                        <option value="{{ $key }}" {{ request('jenis')==$key ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Tanggal Mulai</label>
-                    <input 
-                        type="date" 
-                        name="tanggal_mulai" 
-                        class="form-control"
-                        value="{{ request('tanggal_mulai') }}"
-                    >
+                    <input type="date" name="tanggal_mulai" class="form-control" value="{{ request('tanggal_mulai') }}">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Tanggal Selesai</label>
-                    <input 
-                        type="date" 
-                        name="tanggal_selesai" 
-                        class="form-control"
-                        value="{{ request('tanggal_selesai') }}"
-                    >
+                    <input type="date" name="tanggal_selesai" class="form-control"
+                        value="{{ request('tanggal_selesai') }}">
                 </div>
 
                 <div class="form-group">
@@ -498,10 +476,11 @@
                 </div>
             </div>
 
-            @if(request()->hasAny(['search', 'jenis', 'tanggal_mulai', 'tanggal_selesai']) && (request('jenis') != 'all' || request('search') || request('tanggal_mulai') || request('tanggal_selesai')))
+            @if(request()->hasAny(['search', 'jenis', 'tanggal_mulai', 'tanggal_selesai']) && (request('jenis') != 'all'
+            || request('search') || request('tanggal_mulai') || request('tanggal_selesai')))
             <div class="active-filters">
                 <strong style="color: #64748b; font-size: 13px;">Filter Aktif:</strong>
-                
+
                 @if(request('search'))
                 <span class="filter-badge">
                     🔍 Pencarian: "{{ request('search') }}"
@@ -552,8 +531,8 @@
                         <td>{{ $row->no_rawat }}</td>
                         <td class="text-center">
                             @php
-                                $jenisLower = strtolower($row->jenis);
-                                $badgeClass = 'badge-' . $jenisLower;
+                            $jenisLower = strtolower($row->jenis);
+                            $badgeClass = 'badge-' . $jenisLower;
                             @endphp
                             <span class="badge-jenis {{ $badgeClass }}">
                                 {{ strtoupper($row->jenis) }}
@@ -566,26 +545,27 @@
                         </td>
                         <td class="text-center">
                             @php
-                                $routes = [
-                                    'hiv' => 'hiv.show',
-                                    'bph' => 'bph.show',
-                                    'peb' => 'peb.show',
-                                    'dm' => 'dm.show',
-                                    'jantung' => 'jntg.show',
-                                    'typh' => 'typh.show',
-                                    'dyps' => 'dyps.show'
-                                ];
-                                $routeName = $routes[$jenisLower] ?? null;
+                            $routes = [
+                                'hiv' => 'hiv.show',
+                                'bph' => 'bph.show',
+                                'peb' => 'peb.show',
+                                'dm' => 'dm.show',
+                                'jantung' => 'jntg.show',
+                                'typh' => 'typh.show',
+                                'dyps' => 'dyps.show',
+                                'htsi' => 'htsi.show'
+                            ];
+                            $routeName = $routes[$jenisLower] ?? null;
                             @endphp
-                            
+
                             @if($routeName)
-                                <a href="{{ route($routeName, ['no_rawat' => $row->no_rawat]) }}" class="btn-detail">
-                                    <span>Detail</span>
-                                </a>
+                            <a href="{{ route($routeName, ['no_rawat' => $row->no_rawat]) }}" class="btn-detail">
+                                <span>Detail</span>
+                            </a>
                             @else
-                                <button class="btn-detail" disabled style="opacity: 0.5; cursor: not-allowed;">
-                                    <span>Detail</span>
-                                </button>
+                            <button class="btn-detail" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                <span>Detail</span>
+                            </button>
                             @endif
                         </td>
                     </tr>
@@ -597,9 +577,9 @@
                                 <div class="empty-title">Tidak Ada Data</div>
                                 <div class="empty-desc">
                                     @if(request()->hasAny(['search', 'jenis', 'tanggal_mulai', 'tanggal_selesai']))
-                                        Tidak ada data yang sesuai dengan filter yang Anda pilih
+                                    Tidak ada data yang sesuai dengan filter yang Anda pilih
                                     @else
-                                        Belum ada data pathway yang tersedia
+                                    Belum ada data pathway yang tersedia
                                     @endif
                                 </div>
                             </div>
@@ -615,80 +595,82 @@
             <div class="pagination-info">
                 Halaman {{ $pasien->currentPage() }} dari {{ $pasien->lastPage() }} • Total {{ $pasien->total() }} data
             </div>
-            
+
             <div class="pagination-container">
                 <nav>
                     <ul class="pagination">
                         @if ($pasien->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link">
-                                    <span>←</span>
-                                    <span>Previous</span>
-                                </span>
-                            </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                <span>←</span>
+                                <span>Previous</span>
+                            </span>
+                        </li>
                         @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $pasien->previousPageUrl() }}" rel="prev">
-                                    <span>←</span>
-                                    <span>Previous</span>
-                                </a>
-                            </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $pasien->previousPageUrl() }}" rel="prev">
+                                <span>←</span>
+                                <span>Previous</span>
+                            </a>
+                        </li>
                         @endif
+                        
                         <div class="page-numbers">
                             @php
-                                $start = max($pasien->currentPage() - 2, 1);
-                                $end = min($start + 4, $pasien->lastPage());
-                                $start = max($end - 4, 1);
+                            $start = max($pasien->currentPage() - 2, 1);
+                            $end = min($start + 4, $pasien->lastPage());
+                            $start = max($end - 4, 1);
                             @endphp
 
                             @if($start > 1)
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $pasien->url(1) }}">1</a>
-                                </li>
-                                @if($start > 2)
-                                    <li class="page-item disabled">
-                                        <span class="page-link">...</span>
-                                    </li>
-                                @endif
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $pasien->url(1) }}">1</a>
+                            </li>
+                            @if($start > 2)
+                            <li class="page-item disabled">
+                                <span class="page-link">...</span>
+                            </li>
+                            @endif
                             @endif
 
-                            @for ($i = $start; $i <= $end; $i++)
-                                @if ($i == $pasien->currentPage())
-                                    <li class="page-item active">
-                                        <span class="page-link">{{ $i }}</span>
-                                    </li>
+                            @for ($i = $start; $i <= $end; $i++) 
+                                @if ($i==$pasien->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $i }}</span>
+                                </li>
                                 @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $pasien->url($i) }}">{{ $i }}</a>
-                                    </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $pasien->url($i) }}">{{ $i }}</a>
+                                </li>
                                 @endif
                             @endfor
 
                             @if($end < $pasien->lastPage())
                                 @if($end < $pasien->lastPage() - 1)
-                                    <li class="page-item disabled">
-                                        <span class="page-link">...</span>
-                                    </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
                                 @endif
                                 <li class="page-item">
                                     <a class="page-link" href="{{ $pasien->url($pasien->lastPage()) }}">{{ $pasien->lastPage() }}</a>
                                 </li>
                             @endif
                         </div>
+
                         @if ($pasien->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $pasien->nextPageUrl() }}" rel="next">
-                                    <span>Next</span>
-                                    <span>→</span>
-                                </a>
-                            </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $pasien->nextPageUrl() }}" rel="next">
+                                <span>Next</span>
+                                <span>→</span>
+                            </a>
+                        </li>
                         @else
-                            <li class="page-item disabled">
-                                <span class="page-link">
-                                    <span>Next</span>
-                                    <span>→</span>
-                                </span>
-                            </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                <span>Next</span>
+                                <span>→</span>
+                            </span>
+                        </li>
                         @endif
                     </ul>
                 </nav>

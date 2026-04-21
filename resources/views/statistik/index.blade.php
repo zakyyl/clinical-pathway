@@ -179,8 +179,7 @@
 <div class="gradient-header">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
         <div>
-            <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 8px; color: #E3E3E3;">📊 Statistik & Laporan</h2>
-            {{-- <p style="opacity: 0.95; font-size: 16px; color: #E3E3E3;">Analisis data HIV Clinical Pathway</p> --}}
+            <h2 style="font-size: 32px; font-weight: bold; margin-bottom: 8px; color: #E3E3E3;">Statistik & Laporan</h2>
             <p style="opacity: 0.95; font-size: 16px; color: #E3E3E3;">
 Analisis data 
 {{ request('penyakit') ? strtoupper(request('penyakit')) : 'Semua' }} 
@@ -188,7 +187,7 @@ Clinical Pathway
 </p>
             @if(request('bulan_dari') || request('bulan_sampai'))
             <div class="info-badge" style="margin-top: 12px;">
-                <span>📅</span>
+                <span></span>
                 <span>
                     {{ request('bulan_dari') ? \Carbon\Carbon::parse(request('bulan_dari'))->isoFormat('MMMM YYYY') : 'Awal' }}
                     - 
@@ -204,7 +203,7 @@ Clinical Pathway
 <div class="filter-card">
     <div class="chart-header">
         <h3 class="chart-title">
-            <span>🔍</span> Filter Periode Data
+            <span></span> Filter Periode Data
         </h3>
     </div>
 
@@ -222,6 +221,7 @@ Clinical Pathway
         <option value="jntg" {{ request('penyakit')=='jntg' ? 'selected' : '' }}>Jantung</option>
         <option value="peb" {{ request('penyakit')=='peb' ? 'selected' : '' }}>PEB</option>
         <option value="dyps" {{ request('penyakit')=='dyps' ? 'selected' : '' }}>Dispepsia</option>
+        <option value="htsi" {{ request('penyakit')=='htsi' ? 'selected' : '' }}>Hipertensi</option>
 
     </select>
 </div>
@@ -288,7 +288,7 @@ Clinical Pathway
 <div class="chart-card">
     <div class="chart-header">
         <h3 class="chart-title">
-            <span>📊</span> 
+            <span></span> 
             @if(request('bulan_dari') || request('bulan_sampai'))
                 Grafik Data Periode 
                 ({{ request('bulan_dari') ? \Carbon\Carbon::parse(request('bulan_dari'))->isoFormat('MMM YYYY') : 'Awal' }}

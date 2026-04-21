@@ -688,6 +688,24 @@
     }
 
     /* Responsive */
+    @media (max-width: 1024px) {
+        .patient-info-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .tabs-header {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px; /* For scrollbar */
+        }
+
+        .tab-btn {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+    }
+
     @media (max-width: 768px) {
         .modern-page-header {
             padding: 24px;
@@ -706,12 +724,16 @@
             grid-template-columns: 1fr;
         }
 
+        .form-section-card {
+            padding: 16px;
+        }
+
         .tabs-header {
-            flex-direction: column;
+            flex-direction: row;
         }
 
         .tab-btn {
-            width: 100%;
+            width: auto;
             justify-content: flex-start;
         }
 
