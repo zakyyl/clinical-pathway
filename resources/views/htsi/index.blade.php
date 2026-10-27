@@ -291,10 +291,9 @@
                 <td>{{ $row->no_rm }}</td>
                 <td>{{ $row->nama_pasien }}</td>
                 <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y H:i') }}</td>
-
-	<td class="text-center">
-                    <a href="{{ route('htsi.show', urlencode($row->no_rawat)) }}" class="btn-show">
-                        Lihat Detail
+<td class="text-center">
+                    <a href="{{ route('htsi.show', $row->no_rawat) }}" class="btn-show">
+                        Detail
                     </a>
                 </td>
                         </tr>

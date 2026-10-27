@@ -22,7 +22,7 @@
         gap: 12px;
     }
 
-     .btn-show {
+    .btn-show {
         background: #1B3C53;
         color: white;
         padding: 4px 8px;
@@ -291,13 +291,13 @@
                 <td>{{ $row->no_rm }}</td>
                 <td>{{ $row->nama_pasien }}</td>
                 <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d/m/Y H:i') }}</td>
-	
-	<td class="text-center">
-                    <a href="{{ route('typh.show', urlencode($row->no_rawat)) }}" class="btn-show">
-                        Lihat Detail
+
+                <td class="text-center">
+                    <a href="{{ route('typh.show', $row->no_rawat) }}" class="btn-show">
+                        Detail
                     </a>
                 </td>
-                        </tr>
+            </tr>
             @empty
             <tr>
                 <td colspan="6">
